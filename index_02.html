@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>যোগাযোগ — IChingLab</title>
+
+    <!-- ===== সম্পূর্ণ CSS ===== -->
+    <style>
+        /* ----- Reset & Base ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #faf8f5;
+            color: #2c2b28;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ----- Header / Navbar ----- */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #2d2a24;
+        }
+
+        .logo span {
+            color: #b8864b;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .nav-links a {
+            color: #3d3a34;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #b8864b;
+            transition: width 0.25s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #b8864b;
+        }
+
+        /* Hamburger (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background: #2d2a24;
+            border-radius: 4px;
+            transition: 0.25s;
+        }
+
+        /* ----- Page Hero ----- */
+        .page-hero {
+            background: linear-gradient(135deg, #f5efe8 0%, #ede6dc 100%);
+            padding: 60px 0 48px;
+            text-align: center;
+            border-bottom: 1px solid #e6ddd2;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2d2a24;
+            letter-spacing: -0.5px;
+        }
+
+        .page-hero h1 small {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #7a6e60;
+            display: block;
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .page-hero .breadcrumb {
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: #7a6e60;
+        }
+
+        .page-hero .breadcrumb a {
+            color: #b8864b;
+            font-weight: 500;
+        }
+
+        .page-hero .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* ----- Contact Section (two columns) ----- */
+        .contact-section {
+            padding: 64px 0 80px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        /* --- Left Column: Contact Info --- */
+        .contact-info h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2d2a24;
+            margin-bottom: 10px;
+        }
+
+        .contact-info .subhead {
+            color: #6b5f52;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .info-item .icon {
+            width: 48px;
+            height: 48px;
+            background: #ede6dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.3rem;
+            color: #b8864b;
+        }
+
+        .info-item .text {
+            flex: 1;
+        }
+
+        .info-item .text h4 {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #2d2a24;
+        }
+
+        .info-item .text p {
+            color: #5e5346;
+            margin-top: 2px;
+        }
+
+        .info-item .text a {
+            color: #b8864b;
+            font-weight: 500;
+        }
+
+        .info-item .text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social */
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ede6dc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #3d3a34;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+
+        .social-links a:hover {
+            background: #b8864b;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* --- Right Column: Contact Form --- */
+        .contact-form-wrapper {
+            background: #ffffff;
+            padding: 40px 36px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0eae2;
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d2a24;
+            margin-bottom: 6px;
+        }
+
+        .contact-form-wrapper .form-sub {
+            color: #6b5f52;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #3d3a34;
+            margin-bottom: 5px;
+        }
+
+        .form-group label .required {
+            color: #c0392b;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #e6ddd2;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fcfaf7;
+            transition: border 0.2s, box-shadow 0.2s;
+            color: #2d2a24;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #b8864b;
+            box-shadow: 0 0 0 4px rgba(184, 134, 75, 0.12);
+            background: #ffffff;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .btn-submit {
+            background: #b8864b;
+            color: #fff;
+            border: none;
+            padding: 14px 36px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+            width: 100%;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-submit:hover {
+            background: #a0733d;
+            box-shadow: 0 8px 20px rgba(184, 134, 75, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        /* ----- Map Section ----- */
+        .map-section {
+            padding: 0 0 64px;
+        }
+
+        .map-section .map-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0eae2;
+            background: #ede6dc;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7a6e60;
+            font-weight: 500;
+            font-size: 1.1rem;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMzAgMTBhMjAgMjAgMCAwIDAgMCA0MCAyMCAyMCAwIDAgMCAwLTQweiIgZmlsbD0iI2U2ZGRkMiIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjgiIGZpbGw9IiNiODg2NGIiLz48L3N2Zz4=');
+            background-size: 60px 60px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .map-section .map-wrapper .map-label {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 8px 22px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ----- Footer ----- */
+        .footer {
+            background: #2d2a24;
+            color: #d6cec4;
+            padding: 40px 0 28px;
+            border-top: 3px solid #b8864b;
+        }
+
+        .footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer .copy {
+            font-size: 0.95rem;
+        }
+
+        .footer .copy span {
+            color: #b8864b;
+        }
+
+        .footer .footer-links {
+            display: flex;
+            gap: 24px;
+            font-size: 0.95rem;
+        }
+
+        .footer .footer-links a {
+            transition: color 0.2s;
+        }
+
+        .footer .footer-links a:hover {
+            color: #b8864b;
+        }
+
+        /* ================================================================
+                   RESPONSIVE — MOBILE & TABLET
+                   ================================================================ */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .contact-grid {
+                gap: 40px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            /* Nav */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #ffffff;
+                padding: 16px 0 8px;
+                gap: 14px;
+                border-top: 1px solid #f0eae2;
+                margin-top: 12px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.05rem;
+                padding: 6px 0;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .nav-links a.active {
+                color: #b8864b;
+            }
+
+            /* Hero */
+            .page-hero {
+                padding: 40px 0 32px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .page-hero h1 small {
+                font-size: 1rem;
+            }
+
+            /* Contact grid — single column */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-form-wrapper {
+                padding: 28px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            /* Map */
+            .map-section .map-wrapper {
+                height: 200px;
+            }
+
+            /* Footer */
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+            }
+
+            .footer .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 420px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .page-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .contact-form-wrapper {
+                padding: 20px 14px;
+            }
+
+            .btn-submit {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+
+            .info-item .icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== ছোট জাভাস্ক্রিপ্ট (হ্যামবার্গার টগল) ===== */
+        /* আমরা pure CSS-এ রাখছি, কিন্তু হ্যামবার্গারের জন্য একটু JS লাগবে — */
+        /* এটি <body> শেষে দেওয়া হয়েছে  */
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                IChing<span>Lab</span>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="মেনু টগল">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">হোম</a></li>
+                    <li><a href="#">সেবা</a></li>
+                    <li><a href="#">ব্লগ</a></li>
+                    <li><a href="#" class="active">যোগাযোগ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>
+                যোগাযোগ
+                <small>আমাদের সাথে সংযুক্ত হন</small>
+            </h1>
+            <div class="breadcrumb">
+                <a href="#">হোম</a> &nbsp;/&nbsp; যোগাযোগ
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+
+                <!-- LEFT: Contact Info -->
+                <div class="contact-info">
+                    <h2>আমাদের সাথে কথা বলুন</h2>
+                    <p class="subhead">
+                        যেকোনো প্রশ্ন, মতামত বা সহায়তার জন্য আমাদের সাথে যোগাযোগ করুন।
+                        আমরা ২৪ ঘণ্টার মধ্যে উত্তর দিতে সর্বদা প্রস্তুত।
+                    </p>
+
+                    <div class="info-item">
+                        <div class="icon">📍</div>
+                        <div class="text">
+                            <h4>ঠিকানা</h4>
+                            <p>ধানমন্ডি ২৭, ঢাকা ১২০৫, বাংলাদেশ</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="icon">📞</div>
+                        <div class="text">
+                            <h4>ফোন</h4>
+                            <p><a href="tel:+8801712345678">+৮৮০ ১৭১২-৩৪৫৬৭৮</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="icon">✉️</div>
+                        <div class="text">
+                            <h4>ইমেইল</h4>
+                            <p><a href="mailto:info@ichinglab.com">info@ichinglab.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="icon">🕒</div>
+                        <div class="text">
+                            <h4>কার্যকাল</h4>
+                            <p>সোম–শুক্র: সকাল ৯টা – সন্ধ্যা ৬টা</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" aria-label="ফেসবুক">📘</a>
+                        <a href="#" aria-label="ইন্সটাগ্রাম">📸</a>
+                        <a href="#" aria-label="লিংকডইন">🔗</a>
+                        <a href="#" aria-label="টুইটার">🐦</a>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h3>বার্তা পাঠান</h3>
+                    <p class="form-sub">আপনার নাম, ইমেইল এবং বার্তা দিন — আমরা শীঘ্রই যোগাযোগ করব।</p>
+
+                    <form id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">আপনার নাম <span class="required">*</span></label>
+                                <input type="text" id="fullName" name="fullName" placeholder="পূর্ণ নাম" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">ইমেইল <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="আপনার ইমেইল" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">বিষয়</label>
+                            <input type="text" id="subject" name="subject" placeholder="বার্তার বিষয়" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">বার্তা <span class="required">*</span></label>
+                            <textarea id="message" name="message" placeholder="আপনার বার্তা লিখুন..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">বার্তা পাঠান</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAP SECTION ===== -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-wrapper">
+                <span class="map-label">📍 আমাদের অবস্থান — ধানমন্ডি, ঢাকা</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="copy">
+                &copy; ২০২৬ <span>IChingLab</span> — সর্বস্বত্ব সংরক্ষিত।
+            </div>
+            <div class="footer-links">
+                <a href="#">গোপনীয়তা</a>
+                <a href="#">শর্তাবলী</a>
+                <a href="#">সহায়তা</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== হ্যামবার্গার টগল (ছোট JS) ===== -->
+    <script>
+        (function() {
+            const btn = document.getElementById('hamburgerBtn');
+            const nav = document.getElementById('navLinks');
+
+            if (btn && nav) {
+                btn.addEventListener('click', function() {
+                    nav.classList.toggle('open');
+                });
+
+                // মোবাইলে লিংকে ক্লিক করলে মেনু বন্ধ
+                nav.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        nav.classList.remove('open');
+                    });
+                });
+            }
+
+            // ফর্ম সাবমিট — ডেমো অ্যালার্ট
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('✅ আপনার বার্তা সফলভাবে পাঠানো হয়েছে!\n(ডেমো সংস্করণ)');
+                    form.reset();
+                });
+            }
+        })();
+    </script>
+
+</body>
+</html>
